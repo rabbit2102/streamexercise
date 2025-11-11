@@ -2,20 +2,14 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-data = {
-    '메뉴': ['김치찌개', '초밥', '짜장면', '라멘', '비빔밥', '우동', '떡볶이'],
-    '국물': ['있음', '없음', '없음', '있음', '없음', '있음', '없음'],
-    '매움': ['매움', '안매움', '안매움', '안매움', '안매움', '안매움', '매움'],
-    '온도': ['뜨거움', '차가움', '뜨거움', '뜨거움', '차가움', '뜨거움', '뜨거움'],
-    '종류': ['한식', '일식', '중식', '일식', '한식', '일식', '한식']
-}
-
-df = pd.DataFrame(data)
-
+st.set_page_config(page_title="오늘 뭐 먹지?", layout="wide")
 st.title("🍴 오늘 뭐 먹지? 메뉴 추천기")
 
+# CSV 파일 불러오기
+df = pd.read_csv("menu.csv")
+
 # 사용자 입력
-food_type = st.selectbox("음식 종류를 선택하세요:", ['한식', '일식', '중식'])
+food_type = st.selectbox("음식 종류를 선택하세요:", df['종류'].unique())
 soup = st.radio("국물이 있는 걸 원하시나요?", ['있음', '없음'])
 spicy = st.radio("매운 음식을 원하시나요?", ['매움', '안매움'])
 temperature = st.radio("음식 온도는?", ['뜨거움', '차가움'])
@@ -31,7 +25,13 @@ recommendations = df[
 # 결과 보여주기
 if len(recommendations) > 0:
     st.subheader("추천 메뉴:")
-    for menu in recommendations['메뉴']:
-        st.write(f"- {menu}")
+    cols = st.columns(len(recommendations))
+    for i, menu in enumerate(recommendations.itertuples()):
+        with cols[i]:
+            st.image(menu.이미지, use_column_width=True)
+            st.markdown(f"**{menu.메뉴}**")
+            st.markdown(f"- 국물: {menu.국물}")
+            st.markdown(f"- 매움: {menu.매움}")
+            st.markdown(f"- 온도: {menu.온도}")
 else:
     st.write("조건에 맞는 메뉴가 없어요 😢")
