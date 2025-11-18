@@ -26,10 +26,13 @@ recommendations = df[
 # 결과 보여주기
 if len(recommendations) > 0:
     st.subheader("추천 메뉴:")
-    cols = st.columns(len(recommendations))
-    for i, menu in enumerate(recommendations.itertuples()):
-        with cols[i]:
-            st.markdown(f"**{menu.메뉴}**")
-            st.image(menu.이미지, width=300)
+    max_cols = 3  # 한 줄에 최대 3개
+    for i in range(0, len(recommendations), max_cols):
+        row_items = recommendations.iloc[i:i+max_cols]
+        cols = st.columns(len(row_items))
+        for col, menu in zip(cols, row_items.itertuples()):
+            with col:
+                st.markdown(f"**{menu.메뉴}**")
+                st.image(menu.이미지, width=200)
 else:
     st.write("조건에 맞는 메뉴가 없어요 😢")
