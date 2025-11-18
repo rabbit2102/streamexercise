@@ -31,8 +31,5 @@ if len(recommendations) > 0:
         with cols[i]:
             st.image(menu.이미지, use_column_width=True)
             st.markdown(f"**{menu.메뉴}**")
-            st.markdown(f"- 국물: {menu.국물}")
-            st.markdown(f"- 매움: {menu.매움}")
-            st.markdown(f"- 온도: {menu.온도}")
 else:
     st.write("조건에 맞는 메뉴가 없어요 😢")
