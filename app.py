@@ -33,6 +33,6 @@ if len(recommendations) > 0:
         for col, menu in zip(cols, row_items.itertuples()):
             with col:
                 st.markdown(f"**{menu.메뉴}**")
-                st.image(menu.이미지, width=200)
+                st.image(menu.이미지, width=300)
 else:
     st.write("조건에 맞는 메뉴가 없어요 😢")
