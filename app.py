@@ -22,6 +22,7 @@ recommendations = df[
     (df['온도'] == temperature)
 ]
 
+
 # 결과 보여주기
 if len(recommendations) > 0:
     st.subheader("추천 메뉴:")
