@@ -30,6 +30,6 @@ if len(recommendations) > 0:
     for i, menu in enumerate(recommendations.itertuples()):
         with cols[i]:
             st.markdown(f"**{menu.메뉴}**")
-            st.image(menu.이미지, use_column_width=True)
+            st.image(menu.이미지, width=160)
 else:
     st.write("조건에 맞는 메뉴가 없어요 😢")
